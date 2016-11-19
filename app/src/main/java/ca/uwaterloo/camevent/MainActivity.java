@@ -2,6 +2,7 @@ package ca.uwaterloo.camevent;
 
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +32,7 @@ public class  MainActivity extends BaseActivity implements NavigationView.OnNavi
 
     NavigationView navigationView = null;
     private ViewPager mViewPager;
+    static Boolean isTouched=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +107,8 @@ public class  MainActivity extends BaseActivity implements NavigationView.OnNavi
             // No user is signed in
 
         }
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+        recreate();
 
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -171,9 +176,7 @@ public class  MainActivity extends BaseActivity implements NavigationView.OnNavi
         if(id==R.id.nav_map){
             goToMapActivity();
         }
-        /*if (id == R.id.nav_logout) {
-            logOut();
-        }*/
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -181,6 +184,22 @@ public class  MainActivity extends BaseActivity implements NavigationView.OnNavi
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        if(id==R.id.nav_theme){
+            if(isTouched){
+                isTouched=false;
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                recreate();
+            }else{
+                isTouched=true;
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                recreate();
+            }
+
+        }
+
+        if(id==R.id.nav_logout){
+            logOut();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
