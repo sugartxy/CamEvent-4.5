@@ -19,6 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,6 +41,7 @@ public class  MainActivity extends BaseActivity implements NavigationView.OnNavi
 
     NavigationView navigationView = null;
     private ViewPager mViewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,8 +132,11 @@ public class  MainActivity extends BaseActivity implements NavigationView.OnNavi
 
         }
 
+
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+
     private void createDialog()
     {
         /** Options for user to select*/
@@ -196,6 +202,11 @@ public class  MainActivity extends BaseActivity implements NavigationView.OnNavi
         Intent intent = new Intent(this, PostActivity.class);
         startActivity(intent);
     }
+    private void goToAboutActivity() {
+        //jump to second activity
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
+    }
     private void logOut(){
         FirebaseAuth.getInstance().signOut();
         Intent intent = new Intent(this, HomeActivity.class);
@@ -239,6 +250,9 @@ public class  MainActivity extends BaseActivity implements NavigationView.OnNavi
         int id = item.getItemId();
         if(id==R.id.nav_theme){
             createDialog();
+        }
+        if(id==R.id.nav_about){
+            goToAboutActivity();
         }
         if(id==R.id.nav_logout){
             logOut();
