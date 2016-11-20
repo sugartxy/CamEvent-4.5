@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +22,7 @@ public class Favourite extends Fragment {
      * The fragment argument representing the section number for this
      * fragment.
      */
+    Spinner spinnerBuilding;
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     public Favourite() {
@@ -43,7 +45,7 @@ public class Favourite extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_sub_page02, container, false);
-        String[] items={"Apple","Banana","Grape"};
+        /*String[] items={"Apple","Banana","Grape"};
         final ListView listView=(ListView) rootView.findViewById(R.id.listv);
         final ArrayList<String> arrayList=new ArrayList<>(Arrays.asList(items));
 
@@ -53,8 +55,8 @@ public class Favourite extends Fragment {
                 R.id.txtitem,
                 arrayList
         );
-        listView.setAdapter(listviewAdapter);
-        final EditText txtInput=(EditText)rootView.findViewById(R.id.txtinput);
+        listView.setAdapter(listviewAdapter);*/
+        /*final EditText txtInput=(EditText)rootView.findViewById(R.id.txtinput);
         Button btAdd=(Button)rootView.findViewById(R.id.btadd);
         btAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,8 +65,20 @@ public class Favourite extends Fragment {
                 arrayList.add(newItem);
                 listviewAdapter.notifyDataSetChanged();
             }
-        });
+        });*/
+        spinnerBuilding = (Spinner) rootView.findViewById(R.id.spinnerBuilding);
+        showSpinner();
         return rootView;
+
+    }
+    private void showSpinner(){
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapterBuilding = ArrayAdapter.createFromResource(getContext(),
+                R.array.spinnerBuilding, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapterBuilding.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinnerBuilding.setAdapter(adapterBuilding);
 
     }
 }
