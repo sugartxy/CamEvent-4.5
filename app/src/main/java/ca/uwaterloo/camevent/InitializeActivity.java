@@ -15,6 +15,8 @@ import Core.UWOpenDataAPI;
 import Events.Event;
 import Events.EventTime;
 import Events.EventsParser;
+import com.romainpiel.shimmer.Shimmer;
+import com.romainpiel.shimmer.ShimmerTextView;
 
 public class InitializeActivity extends AppCompatActivity implements JSONDownloader.onDownloadListener {
     //String apiKey = null;
@@ -25,9 +27,8 @@ public class InitializeActivity extends AppCompatActivity implements JSONDownloa
     private ArrayList<Event> events=null;
     private Initialize initilize = new Initialize();
     private String[] url;
-    ProgressBar pb_downloadEvent;
-    int progress = 0;
-    Handler h = new Handler();
+    ShimmerTextView tv;
+    Shimmer shimmer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,33 +57,19 @@ public class InitializeActivity extends AppCompatActivity implements JSONDownloa
             downloader.setOnDownloadListener(this);
             downloader.start();
 
-            pb_downloadEvent = (ProgressBar)findViewById(R.id.pb_downloadEvent);
-            new Thread(new Runnable() {
+            new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    for(int i=0; i<10; i++) {
-                        progress = progress + 10;
-                        h.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                pb_downloadEvent.setProgress(progress);
-                                if(progress == pb_downloadEvent.getMax()) {
-                                    //pb_downloadEvent.setVisibility(4);
-                                    Intent goTOSecondActivity = new Intent(InitializeActivity.this, HomeActivity.class);
-                                    InitializeActivity.this.startActivity(goTOSecondActivity);
-                                    finish();
-                                }
-                            }
-                        });
-                        try {
-                            Thread.sleep(4000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
+                    
+                        final Intent mainIntent = new Intent(InitializeActivity.this, HomeActivity.class);
+                        InitializeActivity.this.startActivity(mainIntent);
+                        InitializeActivity.this.finish();
+                  
                 }
-            }).start();
+            }, 5000);
+            tv = (ShimmerTextView) findViewById(R.id.shimmer_tv);
+            shimmer = new Shimmer();
+            shimmer.start(tv);
 
         }
     }
