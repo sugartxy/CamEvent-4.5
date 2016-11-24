@@ -77,7 +77,7 @@ public class Frag_login extends Fragment {
                             if(task.isSuccessful()) {
                                 progressDialog.dismiss();
                                 startActivity(new Intent(getActivity(), MainActivity.class));
-                                //getActivity().finish();
+                                getActivity().finish();
                             } else {
                                 progressDialog.dismiss();
                                 Toast.makeText(getActivity().getApplicationContext(),
