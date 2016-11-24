@@ -8,17 +8,16 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ca.uwaterloo.camevent.InitializeActivity"
-    android:background="@drawable/uwbgimage"
+    android:background="@drawable/background_search"
     android:id="@+id/RelativeLayout">
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="fill_parent"
+    <com.romainpiel.shimmer.ShimmerTextView
+        android:id="@+id/shimmer_tv"
+        android:text="CamEvent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/pb_downloadEvent"
-        android:indeterminate="true"
-        android:progress="20"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:textColor="@color/appBlue"
+        android:textSize="50sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="350dp" />
 
 </RelativeLayout>
