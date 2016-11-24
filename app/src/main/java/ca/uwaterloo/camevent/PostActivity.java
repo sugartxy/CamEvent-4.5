@@ -204,6 +204,15 @@ public class PostActivity extends BaseActivity implements View.OnClickListener {
         childUpdates.put("/user-posts/" + uid + "/" + key, postValues);
 
         mDatabase.updateChildren(childUpdates);
+        //Write EVENT DB
+        EventDBHandler eventdb = new EventDBHandler(this);
+        Eventinfo eventinfo_tolocal =new Eventinfo(title,loc,null,null,desc,null,date);
+        if(eventinfo_tolocal.getEventLocationName().equals("DC"))
+        {
+            eventinfo_tolocal.setEventLatitude("43.472761");
+            eventinfo_tolocal.setEventLongitude("-80.542264");
+        }
+        eventdb.addEventinfo(eventinfo_tolocal);
     }
 
     @Override
